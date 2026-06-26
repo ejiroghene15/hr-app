@@ -28,17 +28,17 @@ export class AppController {
     };
   }
 
-  @Get('/employee/:employeeId/leave-balance')
-  getEmployeeLeaveBalance(@Param('employeeId') id: string): object {
+  @Get('/employees/:employeeId/leave-balance')
+  getEmployeeLeaveBalance(@Param('employeeId') id: number): object {
     return this.prismaService.employee.findUnique({
-      where: { id: +id },
+      where: { id: id },
       select: { annualLeaveBalance: true, firstname: true, lastname: true },
     });
   }
 
   @Get('/leave-requests')
   leaveRequests(
-    @Query('employeeId') employeeId: any,
+    @Query('employeeId') employeeId: number,
     @Query('status') status: any,
   ): object {
     return this.appService.fetchLeaveRequests(employeeId, status);
@@ -53,12 +53,15 @@ export class AppController {
   }
 
   @Patch('/leave-requests/:id/approve')
-  approveLeaveRequest(@Param('id') id: any): object {
-    return this.appService.approveLeaveRequest(+id);
+  approveLeaveRequest(@Param('id') id: number): object {
+    return this.appService.approveLeaveRequest(id);
   }
 
   @Patch('/leave-requests/:id/reject')
-  rejectLeaveRequest(): object {
-    return {};
+  rejectLeaveRequest(
+    @Param('id') id: number,
+    @Body('comment') comment: string,
+  ): object {
+    return this.appService.rejectLeaveRequest(+id, comment);
   }
 }

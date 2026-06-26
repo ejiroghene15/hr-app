@@ -11,13 +11,11 @@ import { LeaveRequestDto, LeaveType } from './dto/leave-request-dto';
 export class AppService {
   constructor(private prisma: PrismaService) {}
 
-  async fetchLeaveRequests(
-    employeeId: number = 0,
-    status: any = 'PENDING',
-  ): Promise<object> {
+  async fetchLeaveRequests(employeeId: number, status: any): Promise<object> {
     const leaveRequests = await this.prisma.leaveRequests.findMany({
       where: {
-        OR: [{ employeeId: +employeeId }, { status: status }],
+        ...(employeeId && { employeeId: +employeeId }),
+        ...(status && { status }),
       },
     });
 
@@ -127,6 +125,12 @@ export class AppService {
       where: { id },
     });
 
+    if (request?.status === 'REJECTED') {
+      throw new BadRequestException(
+        'This leave request has been rejected and cannot be approved.',
+      );
+    }
+
     if (request?.status === 'APPROVED')
       return { success: true, message: 'Leave request already approved' };
 
@@ -155,5 +159,25 @@ export class AppService {
       message: 'Leave request approved',
       data: updateLeave,
     };
+  }
+  async rejectLeaveRequest(id: number, comment: string) {
+    if (!comment) {
+      throw new BadRequestException('Comment is required');
+    }
+
+    try {
+      const rejectAction = await this.prisma.leaveRequests.update({
+        where: { id, status: 'PENDING' },
+        data: { status: 'REJECTED', comment },
+      });
+
+      return {
+        success: true,
+        message: 'Leave request has been rejected',
+        data: rejectAction,
+      };
+    } catch (error) {
+      throw new BadRequestException('Leave request could not be rejected.');
+    }
   }
 }
