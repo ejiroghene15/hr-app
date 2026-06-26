@@ -53,13 +53,13 @@ export class AppController {
   }
 
   @Patch('/leave-requests/:id/approve')
-  approveLeaveRequest(@Param('id') id: number): object {
-    return this.appService.approveLeaveRequest(id);
+  approveLeaveRequest(@Param('id') id: string): object {
+    return this.appService.approveLeaveRequest(+id);
   }
 
   @Patch('/leave-requests/:id/reject')
   rejectLeaveRequest(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('comment') comment: string,
   ): object {
     return this.appService.rejectLeaveRequest(+id, comment);

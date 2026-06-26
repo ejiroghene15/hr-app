@@ -1,8 +1,10 @@
 import { getDays } from './utils';
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
+  PreconditionFailedException,
 } from '@nestjs/common';
 import { PrismaService } from './service/prisma.service';
 import { LeaveRequestDto, LeaveType } from './dto/leave-request-dto';
@@ -10,7 +12,6 @@ import { LeaveRequestDto, LeaveType } from './dto/leave-request-dto';
 @Injectable()
 export class AppService {
   constructor(private prisma: PrismaService) {}
-
   async fetchLeaveRequests(employeeId: number, status: any): Promise<object> {
     const leaveRequests = await this.prisma.leaveRequests.findMany({
       where: {
@@ -125,14 +126,10 @@ export class AppService {
       where: { id },
     });
 
-    if (request?.status === 'REJECTED') {
-      throw new BadRequestException(
-        'This leave request has been rejected and cannot be approved.',
-      );
-    }
+    if (!request) throw new NotFoundException('Leave request not found');
 
-    if (request?.status === 'APPROVED')
-      return { success: true, message: 'Leave request already approved' };
+    if (request.status !== 'PENDING')
+      throw new ConflictException('Leave request is not pending');
 
     // * UPDATE THE LEAVE REQUEST TO APPROVED
     const updateLeave = await this.prisma.leaveRequests.update({
@@ -141,7 +138,7 @@ export class AppService {
     });
 
     // * IF THE LEAVE TYPE IS ANNUAL, UPDATE THE EMPLOYEE'S ANNUAL LEAVE BALANCE
-    if (request?.leaveType === LeaveType.ANNUAL) {
+    if (request.leaveType === LeaveType.ANNUAL) {
       // * CALCULATE THE DAYS BASED ON START DATE AND END DATE OF THE REQUEST
       const startDate = new Date(request.startDate);
       const endDate = new Date(request.endDate);
@@ -177,7 +174,9 @@ export class AppService {
         data: rejectAction,
       };
     } catch (error) {
-      throw new BadRequestException('Leave request could not be rejected.');
+      throw new PreconditionFailedException(
+        'Leave request could not be rejected.',
+      );
     }
   }
 }
