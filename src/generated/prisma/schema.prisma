@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client-js"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum LeaveType {
+  ANNUAL
+  SICK
+  UNPAID
+}
+
+enum LeaveRequestStatus {
+  PENDING  @map("pending")
+  APPROVED @map("approved")
+  REJECTED @map("rejected")
+}
+
+model Company {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String?
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamptz(6)
+  employees     Employee[]
+  leaveRequests LeaveRequests[]
+
+  @@map("company")
+}
+
+model Employee {
+  id                 Int             @id @default(autoincrement())
+  firstname          String
+  lastname           String
+  tenantId           String          @db.Uuid
+  createdAt          DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime        @default(now()) @map("updated_at") @db.Timestamptz(6)
+  LeaveRequests      LeaveRequests[]
+  annualLeaveBalance Int             @default(365) @map("annual_leave_balance")
+
+  company Company @relation(fields: [tenantId], references: [id])
+
+  @@map("employee")
+}
+
+model LeaveRequests {
+  id         Int                @id @default(autoincrement())
+  employeeId Int                @map("employee_id")
+  tenantId   String             @db.Uuid
+  leaveType  LeaveType
+  reason     String?
+  days       Int                @default(1)
+  comment    String?
+  startDate  String             @map("start_date")
+  endDate    String             @map("end_date")
+  status     LeaveRequestStatus @default(PENDING)
+  createdAt  DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime           @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  company  Company  @relation(fields: [tenantId], references: [id])
+
+  @@map("leave_requests")
+}
