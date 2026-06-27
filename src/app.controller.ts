@@ -47,7 +47,8 @@ export class AppController {
   @Post('/leave-requests')
   newLeaveRequest(
     @Body(ValidationPipe) body: LeaveRequestDto,
-    @Headers('X-Tenant-Id') tenantId: string,
+    @Headers('X-Tenant-Id')
+    tenantId: string = 'dd783da3-531c-4f0d-9719-b4133f704237',
   ): Promise<object> {
     return this.appService.newLeaveRequest(body, tenantId);
   }
