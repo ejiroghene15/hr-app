@@ -68,7 +68,7 @@ approval
 #### 2, Which approach would you recommend for an HR/payroll-adjacent product? How would you mitigate the downside of your chosen approach 
 I would recommend using Redis for caching for a longer time and invalidating the cache when the balance is updated.
 This approach would ensure that the balance is always accurate and up-to-date. In this situation, the only time when balance is stale is when the leave request is approved for an employee
-
+ 
 #### Scenario C – Conflicting Requirements
 Legal says sick leave records must be retained for 7 years.
 Engineering wants to hard-delete employee PII on account deletion for privacy
