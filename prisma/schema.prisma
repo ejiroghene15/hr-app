@@ -58,8 +58,8 @@ model LeaveRequests {
   leaveType  LeaveType
   reason     String?
   comment    String?
-  startDate  String             @map("start_date")
-  endDate    String             @map("end_date")
+  startDate  DateTime           @map("start_date") @db.Date
+  endDate    DateTime           @map("end_date") @db.Date
   status     LeaveRequestStatus @default(PENDING)
   createdAt  DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime           @default(now()) @map("updated_at") @db.Timestamptz(6)
