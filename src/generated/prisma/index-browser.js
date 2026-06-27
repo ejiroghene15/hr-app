@@ -143,7 +143,6 @@ exports.Prisma.LeaveRequestsScalarFieldEnum = {
   tenantId: 'tenantId',
   leaveType: 'leaveType',
   reason: 'reason',
-  days: 'days',
   comment: 'comment',
   startDate: 'startDate',
   endDate: 'endDate',

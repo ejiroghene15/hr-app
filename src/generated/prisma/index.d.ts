@@ -3411,13 +3411,11 @@ export namespace Prisma {
   export type LeaveRequestsAvgAggregateOutputType = {
     id: number | null
     employeeId: number | null
-    days: number | null
   }
 
   export type LeaveRequestsSumAggregateOutputType = {
     id: number | null
     employeeId: number | null
-    days: number | null
   }
 
   export type LeaveRequestsMinAggregateOutputType = {
@@ -3426,10 +3424,9 @@ export namespace Prisma {
     tenantId: string | null
     leaveType: $Enums.LeaveType | null
     reason: string | null
-    days: number | null
     comment: string | null
-    startDate: string | null
-    endDate: string | null
+    startDate: Date | null
+    endDate: Date | null
     status: $Enums.LeaveRequestStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3441,10 +3438,9 @@ export namespace Prisma {
     tenantId: string | null
     leaveType: $Enums.LeaveType | null
     reason: string | null
-    days: number | null
     comment: string | null
-    startDate: string | null
-    endDate: string | null
+    startDate: Date | null
+    endDate: Date | null
     status: $Enums.LeaveRequestStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3456,7 +3452,6 @@ export namespace Prisma {
     tenantId: number
     leaveType: number
     reason: number
-    days: number
     comment: number
     startDate: number
     endDate: number
@@ -3470,13 +3465,11 @@ export namespace Prisma {
   export type LeaveRequestsAvgAggregateInputType = {
     id?: true
     employeeId?: true
-    days?: true
   }
 
   export type LeaveRequestsSumAggregateInputType = {
     id?: true
     employeeId?: true
-    days?: true
   }
 
   export type LeaveRequestsMinAggregateInputType = {
@@ -3485,7 +3478,6 @@ export namespace Prisma {
     tenantId?: true
     leaveType?: true
     reason?: true
-    days?: true
     comment?: true
     startDate?: true
     endDate?: true
@@ -3500,7 +3492,6 @@ export namespace Prisma {
     tenantId?: true
     leaveType?: true
     reason?: true
-    days?: true
     comment?: true
     startDate?: true
     endDate?: true
@@ -3515,7 +3506,6 @@ export namespace Prisma {
     tenantId?: true
     leaveType?: true
     reason?: true
-    days?: true
     comment?: true
     startDate?: true
     endDate?: true
@@ -3617,10 +3607,9 @@ export namespace Prisma {
     tenantId: string
     leaveType: $Enums.LeaveType
     reason: string | null
-    days: number
     comment: string | null
-    startDate: string
-    endDate: string
+    startDate: Date
+    endDate: Date
     status: $Enums.LeaveRequestStatus
     createdAt: Date
     updatedAt: Date
@@ -3651,7 +3640,6 @@ export namespace Prisma {
     tenantId?: boolean
     leaveType?: boolean
     reason?: boolean
-    days?: boolean
     comment?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -3668,7 +3656,6 @@ export namespace Prisma {
     tenantId?: boolean
     leaveType?: boolean
     reason?: boolean
-    days?: boolean
     comment?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -3685,7 +3672,6 @@ export namespace Prisma {
     tenantId?: boolean
     leaveType?: boolean
     reason?: boolean
-    days?: boolean
     comment?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -3702,7 +3688,6 @@ export namespace Prisma {
     tenantId?: boolean
     leaveType?: boolean
     reason?: boolean
-    days?: boolean
     comment?: boolean
     startDate?: boolean
     endDate?: boolean
@@ -3711,7 +3696,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type LeaveRequestsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employeeId" | "tenantId" | "leaveType" | "reason" | "days" | "comment" | "startDate" | "endDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["leaveRequests"]>
+  export type LeaveRequestsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employeeId" | "tenantId" | "leaveType" | "reason" | "comment" | "startDate" | "endDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["leaveRequests"]>
   export type LeaveRequestsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -3737,10 +3722,9 @@ export namespace Prisma {
       tenantId: string
       leaveType: $Enums.LeaveType
       reason: string | null
-      days: number
       comment: string | null
-      startDate: string
-      endDate: string
+      startDate: Date
+      endDate: Date
       status: $Enums.LeaveRequestStatus
       createdAt: Date
       updatedAt: Date
@@ -4174,10 +4158,9 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"LeaveRequests", 'String'>
     readonly leaveType: FieldRef<"LeaveRequests", 'LeaveType'>
     readonly reason: FieldRef<"LeaveRequests", 'String'>
-    readonly days: FieldRef<"LeaveRequests", 'Int'>
     readonly comment: FieldRef<"LeaveRequests", 'String'>
-    readonly startDate: FieldRef<"LeaveRequests", 'String'>
-    readonly endDate: FieldRef<"LeaveRequests", 'String'>
+    readonly startDate: FieldRef<"LeaveRequests", 'DateTime'>
+    readonly endDate: FieldRef<"LeaveRequests", 'DateTime'>
     readonly status: FieldRef<"LeaveRequests", 'LeaveRequestStatus'>
     readonly createdAt: FieldRef<"LeaveRequests", 'DateTime'>
     readonly updatedAt: FieldRef<"LeaveRequests", 'DateTime'>
@@ -4643,7 +4626,6 @@ export namespace Prisma {
     tenantId: 'tenantId',
     leaveType: 'leaveType',
     reason: 'reason',
-    days: 'days',
     comment: 'comment',
     startDate: 'startDate',
     endDate: 'endDate',
@@ -4903,10 +4885,9 @@ export namespace Prisma {
     tenantId?: UuidFilter<"LeaveRequests"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveRequests"> | $Enums.LeaveType
     reason?: StringNullableFilter<"LeaveRequests"> | string | null
-    days?: IntFilter<"LeaveRequests"> | number
     comment?: StringNullableFilter<"LeaveRequests"> | string | null
-    startDate?: StringFilter<"LeaveRequests"> | string
-    endDate?: StringFilter<"LeaveRequests"> | string
+    startDate?: DateTimeFilter<"LeaveRequests"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequests"> | Date | string
     status?: EnumLeaveRequestStatusFilter<"LeaveRequests"> | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFilter<"LeaveRequests"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequests"> | Date | string
@@ -4920,7 +4901,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     leaveType?: SortOrder
     reason?: SortOrderInput | SortOrder
-    days?: SortOrder
     comment?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -4940,10 +4920,9 @@ export namespace Prisma {
     tenantId?: UuidFilter<"LeaveRequests"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveRequests"> | $Enums.LeaveType
     reason?: StringNullableFilter<"LeaveRequests"> | string | null
-    days?: IntFilter<"LeaveRequests"> | number
     comment?: StringNullableFilter<"LeaveRequests"> | string | null
-    startDate?: StringFilter<"LeaveRequests"> | string
-    endDate?: StringFilter<"LeaveRequests"> | string
+    startDate?: DateTimeFilter<"LeaveRequests"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequests"> | Date | string
     status?: EnumLeaveRequestStatusFilter<"LeaveRequests"> | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFilter<"LeaveRequests"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequests"> | Date | string
@@ -4957,7 +4936,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     leaveType?: SortOrder
     reason?: SortOrderInput | SortOrder
-    days?: SortOrder
     comment?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -4980,10 +4958,9 @@ export namespace Prisma {
     tenantId?: UuidWithAggregatesFilter<"LeaveRequests"> | string
     leaveType?: EnumLeaveTypeWithAggregatesFilter<"LeaveRequests"> | $Enums.LeaveType
     reason?: StringNullableWithAggregatesFilter<"LeaveRequests"> | string | null
-    days?: IntWithAggregatesFilter<"LeaveRequests"> | number
     comment?: StringNullableWithAggregatesFilter<"LeaveRequests"> | string | null
-    startDate?: StringWithAggregatesFilter<"LeaveRequests"> | string
-    endDate?: StringWithAggregatesFilter<"LeaveRequests"> | string
+    startDate?: DateTimeWithAggregatesFilter<"LeaveRequests"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"LeaveRequests"> | Date | string
     status?: EnumLeaveRequestStatusWithAggregatesFilter<"LeaveRequests"> | $Enums.LeaveRequestStatus
     createdAt?: DateTimeWithAggregatesFilter<"LeaveRequests"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LeaveRequests"> | Date | string
@@ -5119,10 +5096,9 @@ export namespace Prisma {
   export type LeaveRequestsCreateInput = {
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5136,10 +5112,9 @@ export namespace Prisma {
     tenantId: string
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5148,10 +5123,9 @@ export namespace Prisma {
   export type LeaveRequestsUpdateInput = {
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5165,10 +5139,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5180,10 +5153,9 @@ export namespace Prisma {
     tenantId: string
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5192,10 +5164,9 @@ export namespace Prisma {
   export type LeaveRequestsUpdateManyMutationInput = {
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5207,10 +5178,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5477,7 +5447,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     leaveType?: SortOrder
     reason?: SortOrder
-    days?: SortOrder
     comment?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -5489,7 +5458,6 @@ export namespace Prisma {
   export type LeaveRequestsAvgOrderByAggregateInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    days?: SortOrder
   }
 
   export type LeaveRequestsMaxOrderByAggregateInput = {
@@ -5498,7 +5466,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     leaveType?: SortOrder
     reason?: SortOrder
-    days?: SortOrder
     comment?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -5513,7 +5480,6 @@ export namespace Prisma {
     tenantId?: SortOrder
     leaveType?: SortOrder
     reason?: SortOrder
-    days?: SortOrder
     comment?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
@@ -5525,7 +5491,6 @@ export namespace Prisma {
   export type LeaveRequestsSumOrderByAggregateInput = {
     id?: SortOrder
     employeeId?: SortOrder
-    days?: SortOrder
   }
 
   export type EnumLeaveTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5971,10 +5936,9 @@ export namespace Prisma {
   export type LeaveRequestsCreateWithoutCompanyInput = {
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5986,10 +5950,9 @@ export namespace Prisma {
     employeeId: number
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6059,10 +6022,9 @@ export namespace Prisma {
     tenantId?: UuidFilter<"LeaveRequests"> | string
     leaveType?: EnumLeaveTypeFilter<"LeaveRequests"> | $Enums.LeaveType
     reason?: StringNullableFilter<"LeaveRequests"> | string | null
-    days?: IntFilter<"LeaveRequests"> | number
     comment?: StringNullableFilter<"LeaveRequests"> | string | null
-    startDate?: StringFilter<"LeaveRequests"> | string
-    endDate?: StringFilter<"LeaveRequests"> | string
+    startDate?: DateTimeFilter<"LeaveRequests"> | Date | string
+    endDate?: DateTimeFilter<"LeaveRequests"> | Date | string
     status?: EnumLeaveRequestStatusFilter<"LeaveRequests"> | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFilter<"LeaveRequests"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequests"> | Date | string
@@ -6071,10 +6033,9 @@ export namespace Prisma {
   export type LeaveRequestsCreateWithoutEmployeeInput = {
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6086,10 +6047,9 @@ export namespace Prisma {
     tenantId: string
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6285,10 +6245,9 @@ export namespace Prisma {
     employeeId: number
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6325,10 +6284,9 @@ export namespace Prisma {
   export type LeaveRequestsUpdateWithoutCompanyInput = {
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6340,10 +6298,9 @@ export namespace Prisma {
     employeeId?: IntFieldUpdateOperationsInput | number
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6354,10 +6311,9 @@ export namespace Prisma {
     employeeId?: IntFieldUpdateOperationsInput | number
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6368,10 +6324,9 @@ export namespace Prisma {
     tenantId: string
     leaveType: $Enums.LeaveType
     reason?: string | null
-    days?: number
     comment?: string | null
-    startDate: string
-    endDate: string
+    startDate: Date | string
+    endDate: Date | string
     status?: $Enums.LeaveRequestStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6380,10 +6335,9 @@ export namespace Prisma {
   export type LeaveRequestsUpdateWithoutEmployeeInput = {
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6395,10 +6349,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6409,10 +6362,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     leaveType?: EnumLeaveTypeFieldUpdateOperationsInput | $Enums.LeaveType
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    days?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: StringFieldUpdateOperationsInput | string
-    endDate?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumLeaveRequestStatusFieldUpdateOperationsInput | $Enums.LeaveRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -13,6 +13,7 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   const company = await prisma.company.create({
     data: {
+      id: 'dd783da3-531c-4f0d-9719-b4133f704237',
       name: 'Test Company',
     },
   });
