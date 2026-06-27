@@ -123,48 +123,54 @@ export class AppService {
     };
   }
   async approveLeaveRequest(id: number) {
-    return this.prisma.$transaction(async (tx) => {
-      const request = await tx.leaveRequests.findUnique({
-        where: { id },
-      });
-
-      if (!request) throw new NotFoundException('Leave request not found');
-
-      if (request.status !== 'PENDING')
-        throw new ConflictException('Leave request is not pending');
-
-      // * UPDATE THE LEAVE REQUEST TO APPROVE
-      const updateLeave = await tx.leaveRequests.update({
-        where: { id, status: 'PENDING' },
-        data: { status: 'APPROVED' },
-      });
-
-      // * IF THE LEAVE TYPE IS ANNUAL, UPDATE THE EMPLOYEE'S ANNUAL LEAVE BALANCE
-      if (request.leaveType === LeaveType.ANNUAL) {
-        // * CALCULATE THE DAYS BASED ON START DATE AND END DATE OF THE REQUEST
-        const startDate = new Date(request.startDate);
-        const endDate = new Date(request.endDate);
-        const diffDays = getDays(startDate, endDate);
-
-        // * UPDATE THE ANNUAL LEAVE BALANCE FOR THE EMPLOYEE
-        const employee = await tx.employee.update({
-          where: { id: request.employeeId },
-          data: { annualLeaveBalance: { decrement: diffDays } },
+    return this.prisma.$transaction(
+      async (tx) => {
+        const request = await tx.leaveRequests.findUnique({
+          where: { id },
         });
 
-        if (employee.annualLeaveBalance < 0) {
-          throw new UnprocessableEntityException(
-            'Insufficient leave balance to approve annual leave request.',
-          );
-        }
-      }
+        if (!request) throw new NotFoundException('Leave request not found');
 
-      return {
-        success: true,
-        message: 'Leave request approved',
-        data: updateLeave,
-      };
-    });
+        if (request.status !== 'PENDING')
+          throw new ConflictException('Leave request is not pending');
+
+        // * UPDATE THE LEAVE REQUEST TO APPROVE
+        const updateLeave = await tx.leaveRequests.update({
+          where: { id, status: 'PENDING' },
+          data: { status: 'APPROVED' },
+        });
+
+        // * IF THE LEAVE TYPE IS ANNUAL, UPDATE THE EMPLOYEE'S ANNUAL LEAVE BALANCE
+        if (request.leaveType === LeaveType.ANNUAL) {
+          // * CALCULATE THE DAYS BASED ON START DATE AND END DATE OF THE REQUEST
+          const startDate = new Date(request.startDate);
+          const endDate = new Date(request.endDate);
+          const diffDays = getDays(startDate, endDate);
+
+          // * UPDATE THE ANNUAL LEAVE BALANCE FOR THE EMPLOYEE
+          const employee = await tx.employee.update({
+            where: { id: request.employeeId },
+            data: { annualLeaveBalance: { decrement: diffDays } },
+          });
+
+          if (employee.annualLeaveBalance < 0) {
+            throw new UnprocessableEntityException(
+              'Insufficient leave balance to approve annual leave request.',
+            );
+          }
+        }
+
+        return {
+          success: true,
+          message: 'Leave request approved',
+          data: updateLeave,
+        };
+      },
+      {
+        maxWait: 10000, // Time to wait for a connection (10s)
+        timeout: 20000, // Time before transaction expires (20s)
+      },
+    );
   }
   async rejectLeaveRequest(id: number, comment: string) {
     if (!comment) {
