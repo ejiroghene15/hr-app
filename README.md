@@ -4,8 +4,22 @@ Multi-tenant application using NestJS
 
 ## Project setup
 
+Clone project and navigate into the directory
+
 ```bash
 $ npm install
+```
+
+- Copy `.env.example` to `.env` and update the values or use default values
+
+## Run DB Migration
+```bash
+$ npx prisma migrate dev --name init
+```
+
+## Seed the database
+```bash
+$ npx prisma db seed
 ```
 
 ## Compile and run the project
@@ -19,10 +33,6 @@ $ npm run start:dev
 
 ```
 
-## Seed the database
-```bash
-$ npx prisma db seed
-```
 
 ## Run tests
 
